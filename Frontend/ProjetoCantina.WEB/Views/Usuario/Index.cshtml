@@ -1,0 +1,65 @@
+﻿@model IEnumerable<UsuarioViewModel>
+
+@{
+    ViewData["Title"] = "Usuários";
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h4 class="card-title">Usuários</h4>
+                        <p class="card-description">
+                            Usuários existentes
+                        </p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                        <a asp-action="Adicionar" asp-controller="Usuario" type="button" class="btn btn-primary">Cadastrar novo</a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Nome
+                                </th>
+                                <th>
+                                    Data Cadastro
+                                </th>
+                                <th>
+                                    Opção
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ususario in Model)
+                            {
+                                <tr>
+                                    <td class="py-1">
+                                        @Html.DisplayFor(modelItem => ususario.UsuarioID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => ususario.NomeUsuario)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => ususario.DataCadastro)
+                                    </td>
+                                    <td>
+                                        <a asp-route-id="@ususario.UsuarioID" asp-action="Editar" asp-controller="Usuario"><i class="mdi mdi-grease-pencil"></i></a>&nbsp;|&nbsp;
+                                        <a asp-route-id="@ususario.UsuarioID" asp-action="Deletar" asp-controller="Usuario"><i class="mdi mdi-cup-off"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

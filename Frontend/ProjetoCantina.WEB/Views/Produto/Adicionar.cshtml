@@ -1,0 +1,53 @@
+﻿@model ProdutoViewModel
+
+@{
+    ViewData["Title"] = "Produto";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cadastro de produto</h4>
+                <p class="card-description">
+                    Complete os campos abaixo
+                </p>
+                <form asp-action="Adicionar" asp-controller="Produto" method="post" class="forms-sample">
+                    <div class="form-group">
+                        <label asp-for="Nome"></label>
+                        <input asp-for="Nome" class="form-control col-6" placeholder="Nome do produto" />
+                        <span asp-validation-for="Nome" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoriaID">Categoria</label>
+                        <select class="form-control  col-6" aria-label="category list" asp-for="CategoriaID" class="form-control" asp-items="@ViewBag.SelectCategoria">
+                            <option>Porfavor selecione uma categoria</option>
+                        </select>
+                        <span asp-validation-for="CategoriaID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CodigoBarras"></label>
+                        <input asp-for="CodigoBarras" class="form-control col-6" placeholder="Código de barras" />
+                        <span asp-validation-for="CodigoBarras" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PrecoVenda"></label>
+                        <input asp-for="PrecoVenda" class="form-control col-6" placeholder="Preço de venda" />
+                        <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Estoque"></label>
+                        <input asp-for="Estoque" class="form-control col-6" placeholder="Estoque" />
+                        <span asp-validation-for="Estoque" class="text-danger"></span>
+                    </div>
+                    <button id="buttonCadastrar" type="submit" class="btn btn-primary mr-2">Cadastrar</button>
+                    <a asp-action="Index" asp-controller="Produto" class="btn btn-warning">Voltar</a>
+                </form>
+                <div class="row p-1 alert">
+                    <div id="messagesList" class="col-6">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

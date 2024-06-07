@@ -1,0 +1,88 @@
+﻿@model CaixaViewModel
+
+@{
+    var caixaFechado = false;
+    var nomeStatus = "Aberto";
+
+    if (Model.FluxoCaixa!.CaixaFechado)
+    {
+        caixaFechado = true;
+        nomeStatus = "Fechado";
+    }
+
+    var totalVendas = Model.Vendas!.Count();
+}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-10">
+                        <h4 class="card-title">Visualização de caixa</h4>
+                        <p class="card-description">
+                            Descrição e fluxo
+                        </p>
+                    </div>
+                    <div class="col-2">
+                        <a asp-action="Index" asp-controller="Caixa" class="btn btn-warning mt-1">Voltar</a>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><span class="font-weight-bold">Data da abertura: </span>@Html.DisplayName(Model.DataAbertura.ToString())</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Código único: </span>@Html.DisplayName(Model.CodigoUnico)</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Usuário: </span>@Html.DisplayName(Model.Usuario!.NomeUsuario)</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Aberto com: </span>@Html.DisplayName(Model.FluxoCaixa!.ValorAbertura.ToString("C"))</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Status: </span>@nomeStatus</li>
+                    @if (caixaFechado)
+                    {
+                        <li class="list-group-item"><span class="font-weight-bold">Fechado com: </span>@Html.DisplayName(Model.FluxoCaixa!.ValorFechamento.ToString("C"))</li>
+                    }
+                    <li class="list-group-item"><span class="font-weight-bold">Total de vendas: </span>@totalVendas</li>
+                </ul>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Produto
+                                </th>
+                                <th>
+                                    Quantidade
+                                </th>
+                                <th>
+                                    Valor final
+                                </th>
+                                <th>
+                                    Data da venda
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var venda in Model.Vendas!)
+                            {
+                                string quantidade = venda.Quantidade.ToString().PadLeft(3, '0');
+                                var valorFinal = venda.Quantidade * venda.Produto!.PrecoVenda;
+
+                                <tr>
+                                    <td class="py-1">
+                                        @Html.DisplayFor(modelItem => venda.Produto!.Nome)
+                                    </td>
+                                    <td>
+                                        @quantidade
+                                    </td>
+                                    <td>
+                                        @valorFinal.ToString("C")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => venda.DataVenda)
+                                    </td>                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

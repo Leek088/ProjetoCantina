@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Bem vindo!</h4>
+    <p>Você está logado.</p>
+    <hr>
+    <p class="mb-0">Você já pode acessar todo o site.</p>
+</div>
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">Deseja sair?</h4>
+    <a asp-action="Logout" asp-controller="Account">Sair</a>
+</div>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<CaixaViewModel>
+
+@{
+    ViewData["Title"] = "Caixa";
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h4 class="card-title">Caixas</h4>
+                        <p class="card-description">
+                            Caixas existentes
+                        </p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                        <a asp-action="Adicionar" asp-controller="Caixa" type="button" class="btn btn-primary">Abrir Caixa</a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Código único
+                                </th>
+                                <th>
+                                    Usuário
+                                </th>
+                                <th>
+                                    Data Abertura
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Opção
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var caixa in Model)
+                            {
+                                var status_aberto = "badge-success";
+                                var status_nome = "Aberto";
+
+                                if (caixa.FluxoCaixa!.CaixaFechado)
+                                {
+                                    status_aberto = "badge-warning";
+                                    status_nome = "fechado";
+                                }
+
+                                <tr>
+                                    <td class="py-1">
+                                        @Html.DisplayFor(modelItem => caixa.CodigoUnico)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => caixa.Usuario!.NomeUsuario)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => caixa.DataAbertura)
+                                    </td>
+                                    <td class="font-weight-medium"><div class="badge @status_aberto">@status_nome</div></td>
+                                    <td>
+                                        <a asp-route-id="@caixa.CaixaID" asp-action="View" asp-controller="Caixa"><i class="mdi mdi-eye"></i></a>&nbsp;|&nbsp;
+                                        <a asp-route-id="@caixa.CaixaID" asp-action="Fechar" asp-controller="Caixa"><i class="mdi mdi-key-remove"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CategoriaViewModel>
+
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h4 class="card-title">Categorias</h4>
+                        <p class="card-description">
+                            Categorias existentes
+                        </p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                        <a asp-action="Adicionar" asp-controller="Categoria" type="button" class="btn btn-primary">Cadastrar nova</a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Nome
+                                </th>
+                                <th>
+                                    Data Cadastro
+                                </th>
+                                <th>
+                                    Opção
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var categoria in Model)
+                            {
+                                <tr>
+                                    <td class="py-1">
+                                        @Html.DisplayFor(modelItem => categoria.CategoriaID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => categoria.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => categoria.DataCadastro)
+                                    </td>
+                                    <td>
+                                        <a asp-route-id="@categoria.CategoriaID" asp-action="Editar" asp-controller="Categoria"><i class="mdi mdi-grease-pencil"></i></a>&nbsp;|&nbsp;                                        <a asp-route-id="@categoria.CategoriaID" asp-action="Deletar" asp-controller="Categoria"><i class="mdi mdi-cup-off"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

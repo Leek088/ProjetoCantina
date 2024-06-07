@@ -1,0 +1,56 @@
+﻿@model CaixaViewModel
+
+@{
+    ViewData["Title"] = "Caixa";
+    Guid guid = Guid.NewGuid();
+}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Abertura de caixa</h4>
+                <p class="card-description">
+                    Será aberto com os dados abaixo
+                </p>
+                <form asp-action="Adicionar" asp-controller="Caixa" method="post" class="forms-sample">
+                    <div hidden class="form-group">
+                        <label asp-for="UsuarioID">Código único</label>
+                        <input readonly value="@ViewBag.UsuarioID" asp-for="UsuarioID" class="form-control col-6" />
+                        <span asp-validation-for="UsuarioID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Usuário logado</label>
+                        <input readonly value="@ViewBag.NomeUsuario" class="form-control col-6" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CodigoUnico">Código único</label>
+                        <input readonly value="@guid" asp-for="CodigoUnico" class="form-control col-6" />
+                        <span asp-validation-for="CodigoUnico" class="text-danger"></span>
+                    </div>
+                    <div hidden class="form-group">
+                        <label asp-for="FluxoCaixa!.UsuarioID">Código usuário</label>
+                        <input readonly value="@ViewBag.UsuarioID" asp-for="FluxoCaixa!.UsuarioID" class="form-control col-6" />
+                        <span asp-validation-for="FluxoCaixa!.UsuarioID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FluxoCaixa!.ValorAbertura">Valor da abertura</label>
+                        <input asp-for="FluxoCaixa!.ValorAbertura" class="form-control col-6" />
+                        <span asp-validation-for="FluxoCaixa!.ValorAbertura" class="text-danger"></span>
+                    </div>
+                    <div hidden class="form-group">
+                        <label asp-for="FluxoCaixa!.ValorFechamento">Valor da abertura</label>
+                        <input value="0" asp-for="FluxoCaixa!.ValorFechamento" class="form-control col-6" />
+                        <span asp-validation-for="FluxoCaixa!.ValorFechamento" class="text-danger"></span>
+                    </div>
+                    <button id="buttonCadastrar" type="submit" class="btn btn-primary mr-2">Abrir Caixa</button>
+                    <a asp-action="Index" asp-controller="Caixa" class="btn btn-warning">Voltar</a>
+                </form>
+                <div class="row p-1 alert">
+                    <div id="messagesList" class="col-6">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
